@@ -1,8 +1,10 @@
 import React from "react"
 
+import './HeaderStyle.css';
+
 function Header() {
     return (
-        <header>
+        <header className="navbar">
             <h1>TODO app</h1>
         </header>
     )
