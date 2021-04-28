@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MyInfo from "./MyInfo"; 
+import App from "./components/App"; 
 
 ReactDOM.render(
-  <MyInfo />,
+  <App />,
   document.getElementById('root')
 )
