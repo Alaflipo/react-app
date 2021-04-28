@@ -32,13 +32,19 @@ class TodoItem extends Component<IProps, IState> {
 
 
     render() {
+        const completedStyle = {
+            fontStyle: "italic", 
+            color: "gray", 
+            textDecoration: "line-through"
+        }
+
         return (
             <div className="todoitem">
                 <input 
                     type="checkbox" 
                     checked={this.props.message.completed} 
                     onChange={() => this.props.handleChange(this.props.message.id)}></input>
-                <p>{this.props.message.text}</p>
+                <p style={this.props.message.completed ? completedStyle : {color:'black'}}>{this.props.message.text}</p>
             </div>
         )
     }
