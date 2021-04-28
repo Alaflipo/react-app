@@ -10,6 +10,7 @@ interface IState {
     firstname: String, 
     lastname: String, 
     happy: number 
+    isLoading: boolean
 }
 
 class Main extends Component<{}, IState> {
@@ -21,9 +22,18 @@ class Main extends Component<{}, IState> {
             todos: todoData,
             firstname: "Morris",
             lastname: "Boers",
-            happy: 8
+            happy: 8,
+            isLoading: true
         }
         this.handleChange = this.handleChange.bind(this)
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                isLoading: false
+            })
+        }, 2000)
     }
 
     generateStyle() {
@@ -62,9 +72,13 @@ class Main extends Component<{}, IState> {
         return (
             <main>
                 <p style={styles} >TODO list for: {`${this.state.firstname} ${this.state.lastname}`} </p>
-                <div className='todolist'>
-                    {todo_components}
-                </div>
+                {
+                    this.state.isLoading ? 
+                    <h1>loading...</h1> :
+                    <div className='todolist'>
+                        {todo_components}
+                    </div> 
+                }
                 <button onClick={() => console.log("click!")} onMouseOver={() => console.log("click me pls")}> Click me :) </button>
             </main>
         )
