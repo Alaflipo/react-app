@@ -13,7 +13,8 @@ import Message from "./variable_types"
 // }
 
 interface IProps {
-    message: Message
+    message: Message,
+    handleChange: any
 }
 
 interface IState {
@@ -29,11 +30,15 @@ class TodoItem extends Component<IProps, IState> {
         };
     }
 
+
     render() {
         return (
             <div className="todoitem">
-                <input type="checkbox" checked={this.props.message.completed}></input>
-                <p>{this.state.message.text}</p>
+                <input 
+                    type="checkbox" 
+                    checked={this.props.message.completed} 
+                    onChange={() => this.props.handleChange(this.props.message.id)}></input>
+                <p>{this.props.message.text}</p>
             </div>
         )
     }

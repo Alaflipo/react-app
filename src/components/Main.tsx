@@ -23,6 +23,7 @@ class Main extends Component<{}, IState> {
             lastname: "Boers",
             happy: 8
         }
+        this.handleChange = this.handleChange.bind(this)
     }
 
     generateStyle() {
@@ -38,9 +39,24 @@ class Main extends Component<{}, IState> {
         }
         return styles 
     }
+
+    
+    handleChange(id: number) {
+        this.setState((prevState) => {
+            const updatedtodos = prevState.todos.map(todo => {
+                if (todo.id === id) {
+                    todo.completed = !todo.completed
+                }
+                return todo
+            })
+            return {
+                todos: updatedtodos
+            }
+        })
+    }
     
     render() {
-        const todo_components = this.state.todos.map(item => <TodoItem key={item.id} message={item}/>)
+        const todo_components = this.state.todos.map(item => <TodoItem key={item.id} message={item} handleChange={this.handleChange}/>)
         const styles = this.generateStyle()
 
         return (
@@ -49,6 +65,7 @@ class Main extends Component<{}, IState> {
                 <div className='todolist'>
                     {todo_components}
                 </div>
+                <button onClick={() => console.log("click!")} onMouseOver={() => console.log("click me pls")}> Click me :) </button>
             </main>
         )
         }
