@@ -1,34 +1,57 @@
-import React from "react"
+import React, {Component} from "react"
 
 import TodoItem from "./TodoItem"
+import todoData from "./todoData"
+import Message from "./variable_types"
 import "./MainStyle.css"
 
-function Main() {
-    const firstname = "Morris"
-    const lastname = "Boers"
+interface IState {
+    todos: Message[],
+    firstname: String, 
+    lastname: String, 
+    happy: number 
+}
 
-    const happy = 8
-    const styles = {
-        fontSize: 20,
-        color: "gray"
+class Main extends Component<{}, IState> {
+
+    constructor() {
+        super({})
+        
+        this.state = {
+            todos: todoData,
+            firstname: "Morris",
+            lastname: "Boers",
+            happy: 8
+        }
     }
 
-    if (happy <= 5) {
-        styles.color = "black"
-    } else if (happy > 5) {
-        styles.color = "blue"
-    }
+    generateStyle() {
+        const styles = {
+            fontSize: 20,
+            color: "gray"
+        }
 
-    return (
-        <main>
-            <p style={styles} >TODO list for: {`${firstname} ${lastname}`} </p>
-            <div className='todolist'>
-                <TodoItem item_name='item1'/>
-                <TodoItem item_name='item2'/>
-                <TodoItem item_name='item3'/>
-            </div>
-        </main>
-    )
+        if (this.state.happy <= 5) {
+            styles.color = "black"
+        } else if (this.state.happy > 5) {
+            styles.color = "blue"
+        }
+        return styles 
+    }
+    
+    render() {
+        const todo_components = this.state.todos.map(item => <TodoItem key={item.id} message={item}/>)
+        const styles = this.generateStyle()
+
+        return (
+            <main>
+                <p style={styles} >TODO list for: {`${this.state.firstname} ${this.state.lastname}`} </p>
+                <div className='todolist'>
+                    {todo_components}
+                </div>
+            </main>
+        )
+        }
 
 }
 
